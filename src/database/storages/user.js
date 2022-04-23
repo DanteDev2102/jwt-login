@@ -1,3 +1,5 @@
+const { compare } = require('bcryptjs');
+
 const { USER } = require('../connection');
 
 const create = async ({
@@ -27,6 +29,31 @@ const create = async ({
 	}
 };
 
-const auth = async () => {};
+const auth = async ({ email, password }) => {
+	try {
+		const { dataValues } = await USER.findOne({
+			where: { email }
+		});
+
+		if (!dataValues) {
+			throw new Error('error en el email o contraseña');
+		}
+
+		const isCorrectPassword = compare(
+			password,
+			dataValues.password
+		);
+
+		if (!isCorrectPassword) {
+			throw new Error('error en el email o contraseña');
+		}
+
+		delete dataValues.password;
+
+		return dataValues;
+	} catch (error) {
+		return { error: error.message };
+	}
+};
 
 module.exports = { create, auth };

@@ -11,7 +11,11 @@ const config = {
 	// SERVER
 
 	portServer: process.env.PORT_SERVER || 3001,
-	hostServer: process.env.HOST_SERVER || 'http://localhost'
+	hostServer: process.env.HOST_SERVER || 'http://localhost',
+
+	// JWT
+
+	JWT_SECRET_KEY: process.env.JWT_SECRET || 'this is a secret'
 };
 
 module.exports = config;

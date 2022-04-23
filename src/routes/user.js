@@ -18,6 +18,7 @@ routes.put('/register', __upload, async (req, res) => {
 routes.put('/login', async (req, res) => {
 	try {
 		const userData = req.body;
+		console.log(userData);
 		const user = await login(userData);
 		res.status(201).json(user);
 	} catch (error) {
